@@ -6,7 +6,7 @@ pipeline {
             steps {
                 // Checkout the repository and switch to the 'main' branch
                 script {
-                    git branch: 'main', changelog: false, credentialsId: 'your-git-credentials', url: 'https://github.com/asim1988/finalprojectgit.git'
+                    git branch: 'main', changelog: false, credentialsId: 'your-git-credentials', url: 'https://github.com/asim1988/finalprojectdureka.git'
                 }
             }
         }
