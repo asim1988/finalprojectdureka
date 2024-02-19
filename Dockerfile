@@ -1,5 +1,5 @@
 # Use Ubuntu 20.04.1 as the base image
-FROM ubuntu:20.04.1
+FROM ubuntu:20.04
 
 # Update package lists and install necessary packages
 RUN apt-get update && \
