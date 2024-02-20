@@ -46,13 +46,16 @@ stage('Build Docker Image') {
                 }
             }
         }
-  environment {
+ stage('environment') {
+          steps {
+              environment {
         DOCKER_HUB_CREDENTIALS = '2cadfb61-08fe-40d9-b049-34a3e076223d' // Credential  Docker Hub
         DOCKER_IMAGE_NAME = 'asimbilal2020/edv1asim' // Your Docker Hub username and image name
         DOCKER_IMAGE_TAG = 'V1' // Tag for your image
     }
-    
-    stages {
+  }
+ }   
+     stages {
         stage('Login to Docker Hub') {
             steps {
                 script {
