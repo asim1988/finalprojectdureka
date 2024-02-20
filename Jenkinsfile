@@ -79,9 +79,10 @@ stage('Build Docker Image') {
                     // Push the Docker image to Docker Hub
                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
                         docker.image("${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}").push()
-                    }
-                }
-            }
-        }
-    }
+                     }
+                 }
+             }
+         }
+     }
+  }
 }
