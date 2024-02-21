@@ -5,7 +5,7 @@ FROM ubuntu:20.04
 RUN apt-get update && \
     apt-get install -y \
     wget \
-    openjdk-11-jdk \
+    openjdk-17-jdk \
     && rm -rf /var/lib/apt/lists/*
 
 # Set environment variables for Tomcat
