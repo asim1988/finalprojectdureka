@@ -20,14 +20,14 @@ pipeline {
         stage('Test') {
             steps {
                 // Run your tests
-                sh 'mvn test'
+                sh '/opt/maven/bin/mvn test'
             }
         }
 
         stage('Package') {
             steps {
                 // Package your application
-                sh 'mvn package'
+                sh '/opt/maven/bin/mvn package'
             }
         }
 
