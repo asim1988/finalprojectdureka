@@ -13,7 +13,7 @@ pipeline {
         stage('Compile') {
             steps {
                 // Compile your application
-                sh 'mvn compile'
+                sh '/opt/maven/bin/mvn compile'
             }
         }
 
