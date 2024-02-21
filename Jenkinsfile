@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = 'docker-hub-credentials' // Credential ID for Docker Hub
-        TOMCAT_IMAGE_NAME = 'your-dockerhub-username/custom-tomcat' // Your Docker Hub username and Tomcat image name
-        TOMCAT_IMAGE_TAG = 'latest' // Tag for the Tomcat image
+        DOCKER_HUB_CREDENTIALS = '3090fefd-68f8-450a-95c6-b45324548312' // Credential ID for Docker Hub
+        TOMCAT_IMAGE_NAME = 'asimbilal2020/btplus' // Your Docker Hub username and Tomcat image name
+        TOMCAT_IMAGE_TAG = 'V2' // Tag for the Tomcat image
         ARTIFACT_NAME = 'your-artifact-name.war' // Name of the artifact to include in the Tomcat image
         ARTIFACT_PATH = 'path/to/your/artifact.war' // Path to the artifact to include in the Tomcat image
     }
