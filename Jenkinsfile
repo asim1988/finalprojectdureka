@@ -6,7 +6,7 @@ pipeline {
         TOMCAT_IMAGE_NAME = 'asimbilal2020/btplus' // Your Docker Hub username and Tomcat image name
         TOMCAT_IMAGE_TAG = 'V2' // Tag for the Tomcat image
         ARTIFACT_NAME = 'ABCtechnologies-1.0.war' // Name of the artifact to include in the Tomcat image
-        ARTIFACT_PATH = 'target' // Path to the artifact to include in the Tomcat image
+        ARTIFACT_PATH = '/var/lib/jenkins/workspace/gitpipeline/target/ABCtechnologies-1.0.war' // Path to the artifact to include in the Tomcat image
     }
 
     stages {
