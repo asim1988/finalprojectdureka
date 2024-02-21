@@ -46,46 +46,5 @@ stage('Build Docker Image') {
                 }
             }
         }
- stage('environment') {
-          steps {
-              environment {
-        DOCKER_HUB_CREDENTIALS = '2cadfb61-08fe-40d9-b049-34a3e076223d' // Credential  Docker Hub
-        DOCKER_IMAGE_NAME = 'asimbilal2020/edv1asim' // Your Docker Hub username and image name
-        DOCKER_IMAGE_TAG = 'V1' // Tag for your image
     }
-  }
- }   
-     stages {
-        stage('Login to Docker Hub') {
-            steps {
-                script {
-                    // Log in to Docker Hub
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
-                        // No need to do anything here; just logging in is sufficient
-                    }
-                }
-            }
-        }
-        
-        stage('Tag Docker Image') {
-            steps {
-                script {
-                    // Tag the existing Docker image
-                    docker.image("${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}").tag("${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}")
-                }
-            }
-        }
-        
-        stage('Push Docker Image to Docker Hub') {
-            steps {
-                script {
-                    // Push the Docker image to Docker Hub
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
-                        docker.image("${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}").push()
-                     }
-                 }
-             }
-         }
-     }
-  }
 }
