@@ -1,52 +1,48 @@
 pipeline {
     agent any
-
-    environment {
-        DOCKER_HUB_CREDENTIALS = '3090fefd-68f8-450a-95c6-b45324548312' // Credential ID for Docker Hub
-        TOMCAT_IMAGE_NAME = 'asimbilal2020/btplus' // Your Docker Hub username and Tomcat image name
-        TOMCAT_IMAGE_TAG = 'V2' // Tag for the Tomcat image
-        ARTIFACT_NAME = 'ABCtechnologies-1.0.war' // Name of the artifact to include in the Tomcat image
-        ARTIFACT_PATH = '/var/lib/jenkins/workspace/gitpipeline/target/ABCtechnologies-1.0.war' // Path to the artifact to include in the Tomcat image
-    }
-
+    
     stages {
-        stage('Compile') {
+        stage('Change Branch') {
             steps {
-                // Compile your application
-                sh '/opt/maven/bin/mvn compile'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                // Run your tests
-                sh '/opt/maven/bin/mvn test'
-            }
-        }
-
-        stage('Package') {
-            steps {
-                // Package your application
-                sh '/opt/maven/bin/mvn package'
-            }
-        }
-
-        stage('Build Custom Tomcat Image') {
-            steps {
-                // Build custom Tomcat image with the artifact
+                // Checkout the repository and switch to the 'main' branch
                 script {
-                    docker.build("${TOMCAT_IMAGE_NAME}:${TOMCAT_IMAGE_TAG}", "-f Dockerfile . --build-arg ARTIFACT_NAME=${ARTIFACT_NAME} --build-arg ARTIFACT_PATH=${ARTIFACT_PATH}")
+                    git branch: 'main', changelog: false, credentialsId: 'your-git-credentials', url: 'https://github.com/asim1988/finalprojectdureka.git'
                 }
             }
         }
-
-        stage('Push Custom Tomcat Image to Docker Hub') {
+        
+        stage('Build') {
             steps {
-                // Push the custom Tomcat image to Docker Hub
+                // Compile and package the Maven project
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
-                        docker.image("${TOMCAT_IMAGE_NAME}:${TOMCAT_IMAGE_TAG}").push()
-                    }
+                    sh '/opt/maven/bin/mvn clean package'
+                }
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                // Run tests (optional)
+                script {
+                    sh '/opt/maven/bin/mvn test'
+                }
+            }
+        }
+        
+        stage('Archive') {
+            steps {
+                // Archive the generated artifact (e.g., JAR, WAR)
+                archiveArtifacts 'target/*.war' // Adjust the pattern according to your artifact's extension
+            }
+        }
+stage('Build Docker Image') {
+            steps {
+                script {
+                    // Assuming your Dockerfile is located at the root of your project directory
+                    //Define the directory path you want to change to
+                 
+                              sh 'docker build --no-cache -t edv1asim:V1 .'
+
                 }
             }
         }
