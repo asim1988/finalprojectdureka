@@ -2,11 +2,10 @@
 FROM ubuntu:20.04
 
 # Update package lists and install necessary packages
-RUN apt-get update && \
-    apt-get install -y \
-    wget \
-    openjdk-17-jdk \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update
+RUN apt-get install -y wget
+RUN  openjdk-17-jdk 
+RUN rm -rf /var/lib/apt/lists/*
 
 # Set environment variables for Tomcat
 ENV CATALINA_HOME=/opt/tomcat
