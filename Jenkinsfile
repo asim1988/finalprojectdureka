@@ -42,7 +42,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: '3090fefd-68f8-450a-95c6-b45324548312', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}"
                         sh 'docker tag asimfinalproject1:latest asimbilal2020/dockerci:asimfinalproject1dh'
-                        sh 'docker push asimbilal2020/dockerci:kapilproject1'
+                        sh 'docker push asimbilal2020/dockerci:asimfinalproject1dh'
                     
                         sh "docker logout"
                     }
