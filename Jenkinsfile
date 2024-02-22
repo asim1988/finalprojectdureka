@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'ubuntuserver'
+        label 'workernode1'
     }
     environment {
         BRANCH_NAME = 'main'
