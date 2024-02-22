@@ -32,7 +32,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build --no-cache -t pgpproject:latest ."
+                    sh "docker build --no-cache -t asimfinalproject1:latest ."
                 }
             }
         }
