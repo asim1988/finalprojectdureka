@@ -9,7 +9,7 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Set environment variables for Tomcat
-ENV CATALINA_HOME /opt/tomcat
+ENV CATALINA_HOME=/opt/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 
 # Download and extract Apache Tomcat
