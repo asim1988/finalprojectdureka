@@ -11,20 +11,29 @@ pipeline {
             }
         }
         
-        stage('Build') {
+        stage('compile') {
             steps {
-                // Compile and package the Maven project
+                // clean and comoile
                 script {
-                    sh '/opt/maven/bin/mvn clean package'
+                    sh '/opt/maven/bin/mvn clean compile'
+                }
+            }
+        }
+
+          stage('test') {
+            steps {
+                // test the Maven project
+                script {
+                    sh '/opt/maven/bin/mvn test'
                 }
             }
         }
         
-        stage('Test') {
+        stage('package') {
             steps {
-                // Run tests (optional)
+                // package the maven project
                 script {
-                    sh '/opt/maven/bin/mvn test'
+                    sh '/opt/maven/bin/mvn package'
                 }
             }
         }
@@ -36,7 +45,7 @@ stage('Build Docker Image') {
                     // Assuming your Dockerfile is located at the root of your project directory
                     //Define the directory path you want to change to
                  
-                              sh 'docker build --no-cache -t edv1asim:V1 .'
+                              sh 'docker build --no-cache -t btbullet:V1 .'
 
                 }
             }
