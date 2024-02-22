@@ -29,12 +29,7 @@ pipeline {
             }
         }
         
-        stage('Archive') {
-            steps {
-                // Archive the generated artifact (e.g., JAR, WAR)
-                archiveArtifacts 'target/*.war' // Adjust the pattern according to your artifact's extension
-            }
-        }
+       
 stage('Build Docker Image') {
             steps {
                 script {
