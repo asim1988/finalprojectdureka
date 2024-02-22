@@ -1,54 +1,56 @@
 pipeline {
-    agent any
-    
+    agent {
+        label 'Agent1'
+    }
+
+    environment {
+        BRANCH_NAME = 'main'
+    }
+
     stages {
-        stage('Change Branch') {
+        stage('Checkout') {
             steps {
-                // Checkout the repository and switch to the 'main' branch
+                checkout([$class: 'GitSCM',
+                    branches: [[name: "${BRANCH_NAME}"]],
+                    userRemoteConfigs: [[url: 'https://github.com/asim1988/finalprojectdureka']]])
+            }
+        }
+        stage('Compile') {
+            steps {
+                sh '/opt/maven/bin/mvn clean'
+                sh '/opt/maven/bin/mvn compile'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh '/opt/maven/bin/mvn test'
+            }
+        }
+        stage('Package') {
+            steps {
+                sh '/opt/maven/bin/mvn package'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
                 script {
-                    git branch: 'main', changelog: false, credentialsId: 'your-git-credentials', url: 'https://github.com/asim1988/finalprojectdureka.git'
+                    sh "docker build --no-cache -t pgpproject:latest ."
                 }
             }
         }
-        
-        stage('compile') {
-            steps {
-                // clean and comoile
-                script {
-                    sh '/opt/maven/bin/mvn clean compile'
-                }
-            }
-        }
-
-          stage('test') {
-            steps {
-                // test the Maven project
-                script {
-                    sh '/opt/maven/bin/mvn test'
-                }
-            }
-        }
-        
-        stage('package') {
-            steps {
-                // package the maven project
-                script {
-                    sh '/opt/maven/bin/mvn package'
-                }
-            }
-        }
-        
-       
-stage('Build Docker Image') {
+        stage('Push Docker image to Docker Hub') {
             steps {
                 script {
-                    // Assuming your Dockerfile is located at the root of your project directory
-                    //Define the directory path you want to change to
-                 
-                              sh 'docker build --no-cache -t btbullet:V1 .'
-
+                    withCredentials([usernamePassword(credentialsId: 'Dockerhub_password', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}"
+                        sh 'docker tag pgpedurekaproject1:latest helloworld1977/helloworld:kapilproject1'
+                        sh 'docker push helloworld1977/helloworld:kapilproject1'
+                    
+                        sh "docker logout"
+                    }
                 }
             }
         }
     }
 }
+
