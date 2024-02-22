@@ -4,7 +4,7 @@ FROM ubuntu:20.04
 # Update package lists and install necessary packages
 RUN apt-get update
 RUN apt-get install -y wget
-RUN apt-get install openjdk-17-jdk 
+RUN apt-get install openjdk-17-jre
 RUN rm -rf /var/lib/apt/lists/*
 
 # Set environment variables for Tomcat
