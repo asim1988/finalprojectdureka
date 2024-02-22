@@ -1,5 +1,6 @@
 pipeline {
-    agent any
+    agent {
+        label 'workernode1'
         
     environment {
         BRANCH_NAME = 'main'
