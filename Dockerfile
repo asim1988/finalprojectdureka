@@ -11,6 +11,7 @@ RUN add-apt-repository ppa:openjdk-r/ppa
 # Install fontconfig, OpenJDK 17 JRE, and OpenJDK 17 JDK
 RUN apt-get update && \
  apt-get install -y fontconfig openjdk-17-jre openjdk-17-jdk
+RUN rm -rf /var/lib/apt/lists/*
 RUN apt-get clean
 
 # Clean up package cache
