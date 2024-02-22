@@ -1,27 +1,52 @@
-# Use Ubuntu 20.04.1 as the base image
+# Use Ubuntu as the base image
 FROM ubuntu:20.04
 
-# Update package lists and install necessary packages
-RUN apt-get update
-RUN apt-get install -y wget
-RUN apt-get install openjdk-11-jdk
-RUN rm -rf /var/lib/apt/lists/*
+# Install software-properties-common package required for add-apt-repository
+ RUN apt-get update && \
+ apt-get install -y software-properties-common && \
+ apt-get clean
+ 
+# Add the OpenJDK PPA repository
+RUN add-apt-repository ppa:openjdk-r/ppa
+# Install fontconfig, OpenJDK 17 JRE, and OpenJDK 17 JDK
+RUN apt-get update && \
+ apt-get install -y fontconfig openjdk-17-jre openjdk-17-jdk
+RUN apt-get clean
 
-# Set environment variables for Tomcat
-ENV CATALINA_HOME=/opt/tomcat
+# Clean up package cache
+#RUN apt-get clean
+#RUN apt-get install -f
+#RUN apt-cache search openjdk17
+#RUN apt-get install wget -y
+
+
+# Optionally, set environment variables if needed
+# ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64
+  
+
+# Set environment variables
+ENV CATALINA_HOME /opt/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 
 # Download and extract Apache Tomcat
-RUN wget -qO- https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.18/bin/apache-tomcat-10.1.18.tar.gz | tar xvz -C /opt
+WORKDIR /tmp
+ADD https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.18/bin/apache-tomcat-10.1.18.tar.gz /tmp
+RUN tar -xf apache-tomcat-10.1.18.tar.gz && \
+    mv apache-tomcat-10.1.18 $CATALINA_HOME && \
+    rm apache-tomcat-10.1.18.tar.gz
 
-# Set up a directory for deployment
-RUN mkdir -p /usr/local/tomcat/webapps/
+# Copy the WAR file to the webapps directory
+#COPY target/ABCtechnologies-1.0.war  $CATALINA_HOME/webapps/
+#COPY "/var/lib/jenkins/workspace/CI_CD_PipelineGiT/target/ABCtechnologies-1.0.war" \
+    # "$CATALINA_HOME/webapps/"
+#COPY /var/lib/jenkins/workspace/CI_CD_PipelineGiT/target/ABCtechnologies-1.0.war $CATALINA_HOME/webapps/
+ #COPY "/var/lib/jenkins/workspace/CI_CD_PipelineGiT/target/ABCtechnologies-1.0.war" "$CATALINA_HOME/webapps/"
+# ADD "/var/lib/jenkins/workspace/CI_CD pipleline/target/ABCtechnologies-1.0.war" "$CATALINA_HOME/webapps/ABCtechnologies-1.0.war"
 
-# Copy the .war file into the Tomcat webapps directory
-COPY target/ABCtechnologies-1.0.war /usr/local/tomcat/webapps/
-
-# Expose the default Tomcat port
+COPY target/ABCtechnologies-1.0.war $CATALINA_HOME/webapps/
+                   
+# Expose port 8080
 EXPOSE 8080
 
-# Start Tomcat when the container starts
-CMD ["catalina.sh", "run"]
+# Start Tomcat
+ENTRYPOINT ["catalina.sh", "run"]
