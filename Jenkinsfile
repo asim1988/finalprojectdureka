@@ -1,7 +1,7 @@
 pipeline {
     agent {
         label 'workernode1'
-        
+    }
     environment {
         BRANCH_NAME = 'main'
     }
@@ -46,10 +46,9 @@ pipeline {
                         sh 'docker push asimbilal2020/dockerci:asimfinalproject1dh'
                     
                         sh "docker logout"
-                    }
+
                 }
             }
         }
     }
-}
 
