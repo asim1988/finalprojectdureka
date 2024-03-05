@@ -1,11 +1,6 @@
 ---
 - name: Build Docker image
   hosts: localhost
-  become: yes
-  vars:
-    ansible_user: root
-    ansible_python_interpreter: /usr/bin/python3
-
   tasks:
     - name: Build Docker image from Dockerfile
       become_user: root
