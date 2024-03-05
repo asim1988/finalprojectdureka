@@ -1,0 +1,17 @@
+---
+- name: Build Docker image
+  hosts: local host
+  become: yes
+  vars:
+    ansible_user: root
+
+  tasks:
+    - name: Build Docker image from Dockerfile
+      become_user: root
+      docker_image:
+        name: kiranimg4:latest
+        source: build
+        build:
+          pull: no
+          path: .
+          dockerfile: Dockerfile
