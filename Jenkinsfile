@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'jenkinsworker1'
+        label 'docker_slave'
     }
     environment {
         BRANCH_NAME = 'main'
