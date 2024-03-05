@@ -33,7 +33,7 @@ pipeline {
         stage('Push Docker image to Docker Hub') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub_credential', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    withCredentials([usernamePassword(credentialsId: 'docker_credential', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}"
                         sh 'docker tag asimfinalproject1:latest asimbilal2020/dockerci:asimfinalproject1dh'
                         sh 'docker push asimbilal2020/dockerci:asimfinalproject1dh'
