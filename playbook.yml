@@ -10,7 +10,7 @@
     - name: Build Docker image from Dockerfile
       become_user: root
       docker_image:
-        name: asimimg1:latest
+        name: asimimg10:latest
         source: build
         build:
           pull: no
