@@ -2,9 +2,6 @@ pipeline {
     agent {
         label 'docker_slave'
     }
-    environment {
-        BRANCH_NAME = 'main'
-    }
 
     stages {
         stage('Compile') {
