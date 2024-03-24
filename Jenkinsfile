@@ -2,7 +2,12 @@ pipeline {
     agent {
         label 'docker_slave'
     }
-
+    environment {
+        DOCKER_REPO = 'asimbilal2020/dockerci' // Docker Hub username or organization name
+        IMAGE_NAME = 'asimbilal1' // Name of your Docker image
+        IMAGE_TAG = 'latest' // Tag for your Docker image
+        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials' // Jenkins credentials ID for Docker Hub
+        }
     stages {
         stage('Compile') {
             steps {
@@ -20,13 +25,7 @@ pipeline {
                 sh '/opt/maven/bin/mvn package'
             }
         }
-        environment {
-        DOCKER_REPO = 'asimbilal2020/dockerci' // Docker Hub username or organization name
-        IMAGE_NAME = 'asimbilal1' // Name of your Docker image
-        IMAGE_TAG = 'latest' // Tag for your Docker image
-        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials' // Jenkins credentials ID for Docker Hub
-        }
-    
+       
         stage('Build Docker Image') {
             steps {
                 script {
