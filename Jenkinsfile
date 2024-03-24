@@ -44,8 +44,9 @@ pipeline {
                     sh "docker tag $IMAGE_NAME:$IMAGE_TAG $DOCKER_REPO/$IMAGE_NAME:$IMAGE_TAG"
                     sh "docker push $DOCKER_REPO/$IMAGE_NAME:$IMAGE_TAG"
                     sh "docker logout"
-                }
-            }
-        }
-    }
+                 }
+             }
+         }
+     }
+  }
 }
