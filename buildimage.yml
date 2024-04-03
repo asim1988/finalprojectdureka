@@ -13,8 +13,3 @@
           docker build --file Dockerfile --tag asimbilal2020/finalproject:{{ build_number }} .
       vars:
         workspace: "{{ lookup('env', 'WORKSPACE') }}"
-       
-    - name: Push Docker image
-      shell:
-        cmd: |
-          docker push docker.io/asimbilal2020/finalproject:{{ build_number }}
