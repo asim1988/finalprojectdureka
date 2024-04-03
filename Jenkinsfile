@@ -44,8 +44,6 @@ pipeline {
 
               sh 'cd $WORKSPACE'
 
-                sh 'docker build --file Dockerfile --tag asimbilal2020/finalproject:$BUILD_NUMBER .'
-
               sh script: 'ansible-playbook -i localhost, buildimage.yml'  
 
            }      
