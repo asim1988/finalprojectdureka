@@ -44,7 +44,7 @@ pipeline {
 
               sh 'cd $WORKSPACE'
 
-              sh script: 'ansible-playbook -i localhost, buildimage.yml'  
+              sh script: 'ansible-playbook buildimage.yml'  
 
            }      
 
