@@ -5,7 +5,15 @@ pipeline {
     environment {
         BRANCH_NAME = 'main'
     }
+    post {
 
+             always {
+
+               archiveArtifacts artifacts: 'target/*.war', followSymlinks: false
+
+             }
+
+           }
     stages {
         stage('Compile') {
             steps {
