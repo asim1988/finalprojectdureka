@@ -31,17 +31,6 @@ pipeline {
                 sh '/opt/maven/bin/mvn package'
             }
         }
-         post {
-
-             always {
-
-               archiveArtifacts artifacts: 'target/*.war', followSymlinks: false
-
-             }
-
-           }
-
- 
 
         stage('docker build ') {
 
