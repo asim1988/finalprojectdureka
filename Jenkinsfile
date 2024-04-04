@@ -1,6 +1,6 @@
 pipeline {
     agent any
-      stages {
+    stages {
         stage('Compile') {
             steps {
                 sh '/opt/maven/bin/mvn clean'
