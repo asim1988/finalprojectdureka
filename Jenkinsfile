@@ -6,7 +6,6 @@ pipeline {
     stages {
       stage('compile') {
        steps {
-           git url: 'https://github.com/sarvsp/Edureka-project.git'
            sh script: '/opt/apache-maven-3.8.8/bin/mvn compile'
           }
       }
@@ -32,7 +31,7 @@ pipeline {
        steps {
                     echo "building image and pushing to dockerhub..."
                withDockerRegistry(credentialsId: 'DOCKER_HUB_LOGIN', url: 'https://index.docker.io/v1/') {
-                    sh 'ansible-playbook -i localhost, deploy/dockerbuildimage_push.yml'
+                    sh 'ansible-playbook -i localhost, buildimage.yml'
 
                     }
          
@@ -40,7 +39,7 @@ pipeline {
  }
       stage('ansible-k8sdeploy-qa') {
    steps {
-   sh 'ansible-playbook --inventory /etc/ansible/hosts deploy/ansibleplaybook-k8smanifestdeploy.yml'
+   sh 'ansible-playbook --inventory /etc/ansible/hosts manifestfile.yml'
    }
       }
     }
