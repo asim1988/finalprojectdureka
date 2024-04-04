@@ -1,7 +1,6 @@
 pipeline {
-    agent {
-        label 'docker_slave'
-    }
+    agent any
+    
     environment {
         BRANCH_NAME = 'main'
     }
