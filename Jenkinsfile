@@ -1,32 +1,22 @@
 pipeline {
     agent any
-    tools {
-        maven 'Maven'
-    }
-    stages {
-      stage('compile') {
-       steps {
-           sh script: '/opt/apache-maven-3.8.8/bin/mvn compile'
-          }
-      }
-     
-      stage('unit-test') {
-       steps {
-               sh script: '/opt/apache-maven-3.8.8/bin/mvn test'
+      stages {
+        stage('Compile') {
+            steps {
+                sh '/opt/maven/bin/mvn clean'
+                sh '/opt/maven/bin/mvn compile'
             }
-       post {
-            success {
-                    junit 'target/surefire-reports/*.xml'
+        }
+        stage('Test') {
+            steps {
+                sh '/opt/maven/bin/mvn test'
             }
+        }
+        stage('Package') {
+            steps {
+                sh '/opt/maven/bin/mvn package'
             }
-      }
-     
-      stage('package') {
-       steps {
-           sh script: '/opt/apache-maven-3.8.8/bin/mvn package'
-            }
-      }
-     
+        }
       stage('ansible-dockerbuild-push') {
        steps {
                     echo "building image and pushing to dockerhub..."
@@ -40,7 +30,7 @@ pipeline {
       stage('ansible-k8sdeploy-qa') {
    steps {
    sh 'ansible-playbook --inventory /etc/ansible/hosts manifestfile.yml'
-   }
+        }
       }
     }
 }  
