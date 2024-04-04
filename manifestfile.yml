@@ -2,7 +2,7 @@
 
 - name: Deploy Kubernetes resources using manifest file
 
-  hosts: kubeserver
+  hosts: k8master
 
   become: true
 
