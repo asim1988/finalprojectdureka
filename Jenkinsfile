@@ -82,5 +82,10 @@ pipeline {
 
           }
         }
+        stage('ansible-k8sdeploy-qa') {
+          steps {
+            sh 'ansible-playbook --inventory /etc/ansible/hosts manifestfile.yml'
+        }
+      }
     }
 }
