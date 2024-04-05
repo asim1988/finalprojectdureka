@@ -77,12 +77,12 @@ pipeline {
             sh 'docker run -d -P --name abc-container asimbilal2020/finalproject:$BUILD_NUMBER'
 
             sh 'docker ps -a'
+          }
+        }   
 
          stage('ansible-k8sdeploy-qa') {
            steps {
-              sh 'ansible-playbook --inventory /etc/ansible/hosts deploy/ansibleplaybook-k8smanifestdeploy.yml'
-   }
-      }    
+              sh 'ansible-playbook --inventory /etc/ansible/hosts deploy/ansibleplaybook-k8smanifestdeploy.yml'   
 
           }
         }
