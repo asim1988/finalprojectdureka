@@ -1,8 +1,10 @@
 ---
 - hosts: k8master  # Assuming you're running Ansible locally
   connection: local
-  become: true
+  gather_facts: no  # Disable gathering facts
+  become: yes
   vars:
+    anisble_user: root
     build_number: "{{ lookup('env', 'BUILD_NUMBER') }}"
      
   tasks:  
