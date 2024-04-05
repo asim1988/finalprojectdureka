@@ -1,0 +1,13 @@
+---
+
+- name: Deploy Kubernetes resources using manifest file
+
+  hosts: kubeserver
+
+  become: true
+
+  tasks:
+
+    - name: Apply manifest file using kubectl
+
+      shell: kubectl apply -f /etc/kubernetes/kubernetes_deploy.yml
