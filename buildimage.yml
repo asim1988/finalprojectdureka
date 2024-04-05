@@ -1,0 +1,15 @@
+---
+- hosts: k8master  # Assuming you're running Ansible locally
+  connection: local
+  become: true
+  vars:
+    build_number: "{{ lookup('env', 'BUILD_NUMBER') }}"
+     
+  tasks:  
+    - name: Docker build
+      shell:
+        cmd: |
+          cd {{ workspace }}
+          docker build --file Dockerfile --tag asimbilal2020/finalproject:{{ build_number }} .
+      vars:
+        workspace: "{{ lookup('env', 'WORKSPACE') }}"
