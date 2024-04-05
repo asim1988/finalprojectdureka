@@ -1,5 +1,6 @@
 ---
-- hosts: k8master  # Assuming you're running Ansible locally
+- name: k8 deployment
+  hosts: k8master
   connection: local
   gather_facts: no  # Disable gathering facts
   become: yes
