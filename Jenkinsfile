@@ -23,14 +23,10 @@ pipeline {
                withDockerRegistry(credentialsId: 'DOCKER_HUB_LOGIN', url: 'https://index.docker.io/v1/') {
                     sh 'ansible-playbook -i localhost, buildimage.yml'
 
-                    }
+            }
          
+          }
        }
- }
-      stage('deploy-manifest-k8') {
-   steps {
-   sh 'ansible-playbook --inventory /etc/ansible/hosts playbook_k8deploy.yml'
-        }
-      }
+      
     }
 }  
