@@ -4,10 +4,8 @@
   gather_facts: no  # Disable gathering facts
   become: yes
   vars:
-    anisble_user: root
+    ansible_user: root  # Corrected the spelling of 'ansible_user'
 
   tasks:
-
     - name: Apply manifest file using kubectl
-
-      shell: kubectl apply -f /etc/kubernetes/kubernetes_deploy.yml
+      shell: kubectl apply -f /etc/kubernetes/manifest.yml
