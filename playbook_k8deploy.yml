@@ -1,10 +1,10 @@
 ---
-
-- name: Deploy Kubernetes resources using manifest file
-
-  hosts: k8master
-
-  become: true
+- hosts: k8master  # Assuming you're running Ansible locally
+  connection: local
+  gather_facts: no  # Disable gathering facts
+  become: yes
+  vars:
+    anisble_user: root
 
   tasks:
 
