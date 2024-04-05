@@ -90,4 +90,4 @@
 
     - name: Apply manifest file using kubectl
 
-      shell: kubectl apply -f /etc/kubernetes/ansibleplaybook_manifest.yml
+      shell: kubectl apply -f /etc/kubernetes/manifest.yml
