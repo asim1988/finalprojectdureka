@@ -82,7 +82,7 @@ pipeline {
 
          stage('ansible-k8sdeploy-qa') {
            steps {
-              sh 'ansible-playbook --inventory /etc/ansible/hosts playbook_k8deploy.yml'   
+              sh ' ansible-playbook -i /etc/ansible/hosts playbook_deploy.yml'   
 
           }
         }
