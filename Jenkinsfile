@@ -27,9 +27,9 @@ pipeline {
          
        }
  }
-      stage('ansible-k8sdeploy-qa') {
+      stage('deploy-manifest-k8') {
    steps {
-   sh 'ansible-playbook --inventory /etc/ansible/hosts manifestfile.yml'
+   sh 'ansible-playbook --inventory /etc/ansible/hosts playbook_k8deploy.yml'
         }
       }
     }
