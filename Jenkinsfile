@@ -78,6 +78,12 @@ pipeline {
 
             sh 'docker ps -a'
 
+         stage('ansible-k8sdeploy-qa') {
+           steps {
+              sh 'ansible-playbook --inventory /etc/ansible/hosts deploy/ansibleplaybook-k8smanifestdeploy.yml'
+   }
+      }    
+
           }
         }
     }
