@@ -1,93 +1,24 @@
----
-
 - name: Deploy Kubernetes resources using manifest file
-
   hosts: k8master
-
   become: true
-
   tasks:
-
     - name: Check if Deployment exists
-
-      kubernetes.core.k8s_info:
-
-        api_version: apps/v1
-
-        kind: Deployment
-
-        namespace: default
-
-        name: abc-pod
-
+      command: kubectl get deployment abc-pod -n default
       register: existing_deployment
-
-      ignore_errors: yes
-
- 
+      ignore_errors: true
 
     - name: Delete Deployment if exists
-
-      kubernetes.core.k8s:
-
-        state: absent
-
-        definition:
-
-          apiVersion: apps/v1
-
-          kind: Deployment
-
-          metadata:
-
-            name: abc-pod
-
-            namespace: default
-
-      when: existing_deployment is defined and existing_deployment is not none
-
- 
+      command: kubectl delete deployment abc-pod -n default
+      when: existing_deployment.rc == 0
 
     - name: Check if Service exists
-
-      kubernetes.core.k8s_info:
-
-        api_version: v1
-
-        kind: Service
-
-        namespace: default
-
-        name: abc-svc
-
+      command: kubectl get service abc-svc -n default
       register: existing_service
-
-      ignore_errors: yes
-
- 
+      ignore_errors: true
 
     - name: Delete Service if exists
-
-      kubernetes.core.k8s:
-
-        state: absent
-
-        definition:
-
-          apiVersion: v1
-
-          kind: Service
-
-          metadata:
-
-            name: abc-svc
-
-            namespace: default
-
-      when: existing_deployment is defined and existing_deployment is not none
-
- 
+      command: kubectl delete service abc-svc -n default
+      when: existing_service.rc == 0
 
     - name: Apply manifest file using kubectl
-
       shell: kubectl apply -f manifest.yml
