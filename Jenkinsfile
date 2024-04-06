@@ -64,22 +64,6 @@ pipeline {
 
            }
 
-        stage('docker deploy') {
-
-          steps {
-
-            echo "deploying to docker container..."
-
-            sh 'docker stop abc-container || true'
-
-            sh 'docker rm -f abc-container || true'
-
-            sh 'docker run -d -P --name abc-container asimbilal2020/finalproject:$BUILD_NUMBER'
-
-            sh 'docker ps -a'
-          }
-        }   
-
          stage('ansible-k8sdeploy-qa') {
            steps {
               sh ' ansible-playbook -i /etc/ansible/hosts playbook_k8deploy.yml'   
