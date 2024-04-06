@@ -1,10 +1,8 @@
 ---
-- hosts: k8master  # Assuming you're running Ansible locally
+- hosts: localhost  # Assuming you're running Ansible locally
   connection: local
-  gather_facts: no  # Disable gathering facts
-  become: yes
+  become: true
   vars:
-    anisble_user: root
     build_number: "{{ lookup('env', 'BUILD_NUMBER') }}"
      
   tasks:  
@@ -15,3 +13,8 @@
           docker build --file Dockerfile --tag asimbilal2020/finalproject:{{ build_number }} .
       vars:
         workspace: "{{ lookup('env', 'WORKSPACE') }}"
+       
+    - name: Push Docker image
+      shell:
+        cmd: |
+          docker push docker.io/asimbilal2020/finalproject:{{ build_number }}
