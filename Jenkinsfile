@@ -3,15 +3,7 @@ pipeline {
     environment {
         BRANCH_NAME = 'main'
     }
-    post {
 
-             always {
-
-               archiveArtifacts artifacts: 'target/*.war', followSymlinks: false
-
-             }
-
-           }
     stages {
         stage('Compile') {
             steps {
@@ -29,46 +21,21 @@ pipeline {
                 sh '/opt/maven/bin/mvn package'
             }
         }
+   stage('ansible-dockerbuild-push') {
+       steps {
+                    echo "building image and pushing to dockerhub..."
+               withDockerRegistry(credentialsId: 'DOCKER_HUB_LOGIN', url: 'https://index.docker.io/v1/') {
+                    sh 'ansible-playbook -i localhost, buildimage.yml'
 
-        stage('docker build ') {
-
-                   steps {
-
-              echo "docker building image..."
-
-              echo '$WORKSPACE'
-
-              sh 'ls -la $WORKSPACE'
-
-              sh 'cd $WORKSPACE'
-
-              sh script: 'ansible-playbook buildimage.yml'  
-
-           }      
-
-        }
-
-        stage('push docker image') {
-
-                  steps {
-
-              echo "pushing image to docker hub..."
-
-                    withDockerRegistry(credentialsId: 'DOCKER_HUB_LOGIN', url: 'https://index.docker.io/v1/') {
-
-              sh 'docker push docker.io/asimbilal2020/finalproject:$BUILD_NUMBER'
-
-                  }     
-
-               }
-
-           }
-
-         stage('ansible-k8sdeploy-qa') {
-           steps {
-              sh ' ansible-playbook -i /etc/ansible/hosts playbook_k8deploy.yml'   
-
-          }
-        }
+                    }
+         
+       }
+ }
+      stage('ansible-k8sdeploy-qa') {
+   steps {
+   sh 'ansible-playbook --inventory /etc/ansible/hosts playbook_k8deploy.yml'
+   }
+      }
     }
-}
+}  
+
