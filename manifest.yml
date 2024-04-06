@@ -35,7 +35,7 @@ spec:
       - name: abc-technologies
 
         image: asimbilal2020/finalproject:latest
-
+        imagePullPolicy: Always
         ports:
 
         - name: http
