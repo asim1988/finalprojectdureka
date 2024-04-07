@@ -21,4 +21,4 @@
       when: existing_service.rc == 0
 
     - name: Apply manifest file using kubectl
-      shell: kubectl apply -f /etc/kubernetes/manifest.yml
+      shell: kubectl apply -f manifest.yml
