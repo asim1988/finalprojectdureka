@@ -34,7 +34,7 @@ spec:
 
       - name: abc-technologies
 
-        image: asimbilal2020/finalproject:22
+        image: asimbilal2020/finalproject:latest
         
         ports:
 
