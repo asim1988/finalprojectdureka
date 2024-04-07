@@ -32,7 +32,7 @@ pipeline {
         stage('Pull Docker Image') {
             steps {
                 script {
-                    docker.image('asimbilal2020/finalproject:25').pull()
+                    docker.image('asimbilal2020/finalproject:26').pull()
                 }
             }
         }
