@@ -21,21 +21,25 @@ pipeline {
                 sh '/opt/maven/bin/mvn package'
             }
         }
-   stage('ansible-dockerbuild-push') {
-       steps {
-                    echo "building image and pushing to dockerhub..."
-               withDockerRegistry(credentialsId: 'DOCKER_HUB_LOGIN', url: 'https://index.docker.io/v1/') {
+        stage('ansible-dockerbuild-push') {
+            steps {
+                echo "building image and pushing to dockerhub..."
+                withDockerRegistry(credentialsId: 'DOCKER_HUB_LOGIN', url: 'https://index.docker.io/v1/') {
                     sh 'ansible-playbook -i localhost, buildimage.yml'
-
-                    }
-         
-       }
- }
-      stage('ansible-k8sdeploy-qa') {
-   steps {
-   sh 'ansible-playbook --inventory /etc/ansible/hosts playbook_k8deploy.yml'
-   }
-      }
+                }
+            }
+        }
+        stage('Pull Docker Image') {
+            steps {
+                script {
+                    docker.image('asimbilal2020/finalproject:latest').pull()
+                }
+            }
+        }
+        stage('ansible-k8sdeploy-qa') {
+            steps {
+                sh 'ansible-playbook --inventory /etc/ansible/hosts playbook_k8deploy.yml'
+            }
+        }
     }
-}  
-
+}
