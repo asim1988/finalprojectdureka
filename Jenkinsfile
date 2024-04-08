@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'k8-master'
+    }
     environment {
         BRANCH_NAME = 'main'
     }
