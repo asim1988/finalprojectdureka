@@ -33,7 +33,7 @@ pipeline {
         stage('Pull Docker Image') {
             steps {
                 echo "Pulling Docker image from GitHub..."
-                sh 'docker pull asimbilal2020/finalproject:26'
+                sh 'docker pull asimbilal2020/finalproject:latest'
             }
         }
         
