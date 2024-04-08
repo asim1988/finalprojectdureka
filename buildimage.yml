@@ -1,6 +1,6 @@
 ---
 - name: creating the image
-  hosts: localhost  # Assuming you're running Ansible locally
+  hosts: k8master  # Assuming you're running Ansible locally
   connection: local
   become: true
   vars:
