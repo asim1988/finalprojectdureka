@@ -1,5 +1,5 @@
 - name: Deploy Kubernetes resources using manifest file
-  hosts: localhost
+  hosts: k8master
   become: true
   tasks:
     - name: Check if Deployment exists
